@@ -11,7 +11,7 @@ import io
 
 # 1. 網頁頁面設定
 st.set_page_config(
-    page_title="eHRP Onboarding Assistant | Enterprise Demo",
+    page_title="eHRP Align | Enterprise Demo",
     page_icon="📋",
     layout="wide"
 )
