@@ -79,7 +79,7 @@ def normalize_dept_name(dept_str):
 
 # 4. 主頁面標題區塊
 st.title("🏗️ Enterprise Demo Limited")
-st.subheader("📋 eHRP 入職資料智能助手")
+st.subheader("📋 eHRP Align 入職資料智能對齊系統")
 
 st.info("🔒 **內部數據安全保障**：本系統採用純本地 Session 數據標準化技術，您上傳的入職表格/CV 文件只會暫存在當前網頁會話中。**當您關閉或重新整理網頁時，數據會立即被物理銷毀**，絕對不會儲存到互聯網上，請放心使用。")
 
@@ -118,7 +118,7 @@ with st.sidebar:
     st.markdown("### 🛡️ 數據安全與進階 HR 管治特色")
     st.markdown("""
     * **零數據留存**：運算僅存於本地 Session 記憶體，重整即刻物理銷毀。
-    * **🎯 進階 HR Tech 引擎**：
+    * **🎯 進階 HR Tech 引擎 (eHRP Align)**：
       * **多源指向性核對**：合約、證件、申請表、CV 及專業證書副本多軌交叉校驗。
       * **中文姓名自動拆分**：自動校正中文姓氏與名字欄位錯位。
       * **部門代碼與銀行名稱校正**：自動映射標準代碼與校正 OCR 錯字。
@@ -259,7 +259,7 @@ if uploaded_file:
         if not active_token:
             st.error("請先確保 API Key / Token 載入成功！")
         else:
-            with st.status("🔍 智能解析進行中...", expanded=True) as status_box:
+            with st.status("🔍 eHRP Align 智能解析進行中...", expanded=True) as status_box:
                 try:
                     file_text = ""
                     base64_images = []
@@ -299,9 +299,8 @@ if uploaded_file:
                     status_box.write(f"📊 **內部審計日誌**: 向量文字提取 `{len(file_text)}` 字元 | 轉換圖片 `{len(base64_images)}` 頁")
                     status_box.write("🧠 正在根據「多源指向性核對原則」交叉校驗電話、住址、學歷及履歷...")
 
-                    # 【指向性增強 Prompt：已替換真實公司名與表單編號】
                     system_prompt = """
-                    你是一個極度嚴謹的 HR 入職資料提取助手。請從輸入的文件圖像或文字中提取個人資料，並回傳 JSON 物件。
+                    你是一個極度嚴謹的 HR 入職資料提取助手 (eHRP Align)。請從輸入的文件圖像或文字中提取個人資料，並回傳 JSON 物件。
 
                     【資料來源優先級與指向性核對原則】
                     1. 僱傭條款與薪酬結構 (salary, rank, grade, point)：
@@ -528,12 +527,12 @@ if "normalized_json" in st.session_state:
             st.info("尚無過往履歷紀錄")
 
     with tab8:
-        st.subheader("eHRP Clean Payload (用於 Chrome Extension 一鍵填表)")
+        st.subheader("eHRP Align Clean Payload (用於 Chrome Extension 一鍵填表)")
         
         st.download_button(
             label="📋 下載 JSON 資料檔 (用於 Extension)",
             data=json.dumps(data, ensure_ascii=False, indent=2),
-            file_name=f"eHRP_{data['header']['employee_no'] or 'new_employee'}.json",
+            file_name=f"eHRP_Align_{data['header']['employee_no'] or 'new_employee'}.json",
             mime="application/json",
             type="primary"
         )
