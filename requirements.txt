@@ -1,0 +1,12 @@
+# 核心 Web 框架與資料處理
+streamlit==1.32.0
+pandas==2.2.1
+
+# HTTP 請求與日期解析
+requests==2.31.0
+python-dateutil==2.9.0.post0
+
+# PDF 串流與 OCR 影像渲染
+pypdf==4.1.0
+PyMuPDF==1.23.26
+Pillow==10.2.0
