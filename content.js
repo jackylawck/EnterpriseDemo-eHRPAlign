@@ -1,5 +1,5 @@
 /**
- * eHRP Auto-Fill Content Script | Enterprise Demo
+ * eHRP Align | Enterprise Demo
  */
 
 function autoFillEhrpParticulars(data) {
