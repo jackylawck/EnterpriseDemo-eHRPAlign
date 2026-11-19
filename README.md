@@ -7,6 +7,9 @@
 [![Governance: ISO 42001](https://img.shields.io/badge/AIMS-ISO%2FIEC%2042001-green.svg)](SYSTEM_CLASSIFICATION_AND_AIMS_REPORT.md)
 [![Security: ISO 27001](https://img.shields.io/badge/ISMS-ISO%2FIEC%2027001-purple.svg)](COMPLIANCE_AND_DATA_GOVERNANCE.md)
 [![Privacy: HK PDPO / GDPR](https://img.shields.io/badge/Privacy-PDPO%20%7C%20GDPR-orange.svg)](COMPLIANCE_AND_DATA_GOVERNANCE.md)
+[![Architecture: Zero Data Retention](https://img.shields.io/badge/Privacy_by_Design-Zero_Data_Retention-0078D4.svg)](COMPLIANCE_AND_DATA_GOVERNANCE.md)
+
+🌐 **[專案展示主頁 / Project Showcase](https://jackylawck.github.io/EnterpriseDemo-eHRPAlign/)** ｜ 🚀 **[啟動線上系統 / Launch Demo App](https://enterprisedemo-ehrpalign.streamlit.app/)**
 
 ---
 
@@ -26,37 +29,35 @@ Architected under **Privacy by Design** principles, the entire workflow operates
 
 ## 💡 核心功能與亮點 / Key Highlights
 
-- **🎯 指向性資料核對 (Source Grounding Verification):**
-  - **僱傭條件與薪酬 (Employment Terms):** 嚴格以《僱傭合約》第 3 條薪酬條款為法定單一事實來源提煉薪金、級別（Grade）、職級（Rank）與支薪點（Point）。
-  - **法定身份 (Identity Verification):** 嚴格以官方身份證明文件副本為基準核實全名與證號。
-  - **聯絡資訊與住址 (Contact & Address):** 優先從簽署之《職位申請表 (Demo-Form-001)》提取手機號碼與通訊地址。
-  - **結算戶口 (Bank Accounts):** 比對內建銀行標準字典，自動校正常見 OCR 錯字及拼音偏差。
-- **🛡️ 零數據留存架構 (Zero Data Retention Architecture):** 所有文檔處理均在臨時 Session 記憶體內完成，無任何實體資料庫，網頁關閉即瞬間物理銷毀。
-- **🚫 零 AI 幻覺防禦 (Zero Hallucination Control):** 模糊、損毀或文檔未記載之欄位強制留空（`""`），嚴禁模型自行推斷或捏造數據。
-- **📦 雙向自動化填表生態 (Chrome Extension Ecosystem):** 支援一鍵導出標準 JSON Clean Payload，配合配套之 Chrome 擴充套件（`content.js`, `manifest.json`）實現瀏覽器端 1 秒自動帶入。
+- **🎯 指向性資料核對 / Source Grounding Verification:**
+  - **僱傭條件與薪酬 / Employment Terms:** 嚴格以《僱傭合約》第 3 條薪酬條款為法定單一事實來源提煉薪金、級別（Grade）、職級（Rank）與支薪點（Point）。*(Grounded strictly on Clause 3 of the Employment Contract).*
+  - **法定身份 / Identity Verification:** 嚴格以官方身份證明文件副本為基準核實全名與證號。*(Verified against official ID card copies).*
+  - **聯絡資訊與住址 / Contact & Address:** 優先從簽署之《職位申請表 (Demo-Form-001)》提取手機號碼與通訊地址。*(Extracted primarily from signed Job Application Form Demo-Form-001).*
+  - **結算戶口 / Bank Accounts:** 比對內建銀行標準字典，自動校正常見 OCR 錯字及拼音偏差。*(Normalized against standard banking dictionaries to auto-correct OCR typos).*
+- **🛡️ 零數據留存架構 / Zero Data Retention Architecture:** 所有文檔處理均在臨時 Session 記憶體內完成，無任何實體資料庫，網頁關閉即瞬間物理銷毀。*(All processing occurs in volatile RAM with zero persistent storage; purged immediately upon tab closure).*
+- **🚫 零 AI 幻覺防禦 / Zero Hallucination Control:** 模糊、損毀或文檔未記載之欄位強制留空（`""`），嚴禁模型自行推斷或捏造數據。*(Ambiguous or missing fields default strictly to empty strings `""` to prevent speculative generation).*
+- **📦 雙向自動化填表生態 / Chrome Extension Ecosystem:** 支援一鍵導出標準 JSON Clean Payload，配合配套之 Chrome 擴充套件（`content.js`, `manifest.json`）實現瀏覽器端 1 秒自動帶入。*(Supports 1-click JSON export for instant browser DOM auto-fill via Manifest V3 extension).*
 
 ---
 
 ## 🏛️ 流程生命週期與治理閉環 / Workflow Architecture
 
-
-```
-
-[上傳文檔合集 / Upload Package]
-│
-▼
+```text
+[上傳文檔合集 / Upload Onboarding Package]
+                 │
+                 ▼
 [PyMuPDF 記憶體串流轉碼 / In-Memory PDF Rendering]
-│
-▼
+                 │
+                 ▼
 [多模態 Vision / 規則引擎提取 / Multimodal & Deterministic Extraction]
-│
-▼
+                 │
+                 ▼
 [指向性來源對照與標準化 / Source Grounding & Schema Normalization]
-│
-▼
+                 │
+                 ▼
 [HR 專員人工複核 / Human-in-the-Loop Review] ──► [匯出 JSON / Export Clean Payload]
-│
-▼
+                 │
+                 ▼
 [關閉瀏覽器 / Tab Closed] ──► 【 記憶體物理釋放 / Zero Data Retention 】
 
 ```
@@ -66,16 +67,22 @@ Architected under **Privacy by Design** principles, the entire workflow operates
 ## 📂 倉庫結構 / Repository Structure
 
 ```text
-├── app.py                                  # Streamlit 核心應用程式 (Core Streamlit Engine)
-├── content.js                              # Chrome Extension 頁面 DOM 自動填入腳本
-├── parser.js                               # 資料標準化模組 (JavaScript Normalization Engine)
-├── manifest.json                           # Chrome Extension (Manifest V3) 設定檔
-├── requirements.txt                        # Python 依賴版本鎖定清單
-├── index.html                              # 專案宣傳展示首頁 (GitHub Pages Landing)
-├── LICENSE                                 # MIT 開源授權條款
-├── COMPLIANCE_AND_DATA_GOVERNANCE.md       # 資安、私隱與資料管治白皮書 (ISO 27001/27701/PDPO)
-├── SYSTEM_CLASSIFICATION_AND_AIMS_REPORT.md# 系統技術定性與 AI 管治篩查報告 (ISO 42001/EU AI Act)
-└── TERMS_OF_USE_AND_DISCLAIMER.md          # 使用條款與責任隔離聲明 (Terms & Disclaimer)
+EnterpriseDemo-eHRPAlign/
+├── app.py                                   # Streamlit 核心應用程式 (Core Streamlit Engine)
+├── content.js                               # Chrome Extension 頁面 DOM 自動填入腳本
+├── parser.js                                # 前端資料標準化模組 (JS Normalization Engine)
+├── manifest.json                            # Chrome Extension (Manifest V3) 設定檔
+├── requirements.txt                         # Python 依賴版本鎖定清單 (Pinned Dependencies)
+├── index.html                               # 專案宣傳展示首頁 (GitHub Pages Landing)
+├── LICENSE                                  # MIT 開源授權條款
+├── COMPLIANCE_AND_DATA_GOVERNANCE.md        # 資安、私隱與資料管治白皮書 (ISO 27001/27701/PDPO)
+├── SYSTEM_CLASSIFICATION_AND_AIMS_REPORT.md # 系統技術定性與 AI 管治篩查報告 (ISO 42001/EU AI Act)
+├── TERMS_OF_USE_AND_DISCLAIMER.md           # 使用條款與責任隔離聲明 (Terms & Disclaimer)
+├── flows/
+│   └── ehrp_alignment_pipeline.json         # 端到端管治流程與狀態機藍圖 (Workflow Blueprint)
+└── schemas/
+    ├── ehrp_payload_schema.json             # eHRP 標準輸出 JSON Schema 規格契約
+    └── sample_clean_payload.json            # 零真實 PII 測試範例檔 (Synthetic Test Payload)
 
 ```
 
@@ -83,30 +90,30 @@ Architected under **Privacy by Design** principles, the entire workflow operates
 
 ## 🚀 快速上手 / Quick Start
 
-### 1. 本地運行 (Local Installation)
+### 1. 本地運行 / Local Installation
 
-確保本地已安裝 Python 3.10+ 環境：
+確保本地已安裝 Python 3.10+ 環境 *(Ensure Python 3.10+ is installed)*：
 
 ```bash
-# 複製儲存庫
+# 複製儲存庫 / Clone repository
 git clone [https://github.com/jackylawck/EnterpriseDemo-eHRPAlign.git](https://github.com/jackylawck/EnterpriseDemo-eHRPAlign.git)
 cd EnterpriseDemo-eHRPAlign
 
-# 安裝鎖定依賴
+# 安裝鎖定依賴 / Install pinned dependencies
 pip install -r requirements.txt
 
-# 啟動應用程式
+# 啟動應用程式 / Launch Streamlit application
 streamlit run app.py
 
 ```
 
-### 2. 金鑰配置 (API Key Configuration)
+### 2. 金鑰配置 / API Key Configuration
 
-若需調用外部模型，請於 `.streamlit/secrets.toml` 中配置（系統亦支援於側邊欄即時手動輸入自備 Key）：
+若需調用多模態視覺模型，請於 `.streamlit/secrets.toml` 中配置（系統亦支援於側邊欄即時手動輸入自備金鑰，全程不留存）：
 
 ```toml
 GROQ_API_KEY = "gsk_..."
-# 或配置 GEMINI_API_KEY / OPENAI_API_KEY / GITHUB_TOKEN
+# 亦支援配置 / Also supports: GEMINI_API_KEY, OPENAI_API_KEY, GITHUB_TOKEN
 
 ```
 
@@ -114,11 +121,16 @@ GROQ_API_KEY = "gsk_..."
 
 ## 📜 合規與管治文檔索引 / Compliance & Governance Index
 
-為符合各項國際標準與資料保護規範，本專案提供完備的管治文件體系：
+為符合各項國際標準與資料保護規範，本專案提供完備的雙語管治文件體系 *(Comprehensive bilingual governance documentation aligned with global regulatory frameworks)*：
 
-1. **[系統定性與 ISO 42001 管治篩查報告](https://www.google.com/search?q=SYSTEM_CLASSIFICATION_AND_AIMS_REPORT.md)**：界定系統確定性架構邊界，聲明歐盟 EU AI Act 免除審查與防自動化剖析依據。
-2. **[資訊安全與數據管治白皮書](https://www.google.com/search?q=COMPLIANCE_AND_DATA_GOVERNANCE.md)**：落實 ISO/IEC 27001、ISO/IEC 27701、香港 PDPO 及歐盟 GDPR 之零數據留存防禦措施。
-3. **[使用者條款與責任隔離聲明](https://www.google.com/search?q=TERMS_OF_USE_AND_DISCLAIMER.md)**：明確界定系統之輔助定位，規範 Human-in-the-Loop 審核義務及完全免責條款。
+1. **[系統定性與 ISO 42001 管治篩查報告 / System Classification & AIMS Report](https://www.google.com/search?q=SYSTEM_CLASSIFICATION_AND_AIMS_REPORT.md)**
+界定系統確定性架構邊界，聲明歐盟 EU AI Act 排除適用依據與防自動化剖析控制。*(Defines deterministic system boundaries, EU AI Act carve-out rationale, and anti-profiling safeguards).*
+2. **[資訊安全與數據管治白皮書 / Information Security & Data Governance](https://www.google.com/search?q=COMPLIANCE_AND_DATA_GOVERNANCE.md)**
+落實 ISO/IEC 27001、ISO/IEC 27701、香港 PDPO 及歐盟 GDPR 之零數據留存防禦措施。*(Details Zero Data Retention controls aligned with ISO 27001, ISO 27701, HK PDPO, and GDPR).*
+3. **[使用者條款與責任隔離聲明 / Terms of Use & Legal Disclaimer](https://www.google.com/search?q=TERMS_OF_USE_AND_DISCLAIMER.md)**
+明確界定系統之輔助定位，規範 Human-in-the-Loop 審核義務及完全免責條款。*(Establishes administrative tooling scope, mandatory HITL verification, and limitation of liability).*
+4. **[資料規格契約與流程定義 / Data Contracts & Workflow Blueprints](https://www.google.com/search?q=schemas/ehrp_payload_schema.json)**
+提供標準化 JSON Schema（`schemas/`）與管治狀態機定義（[`flows/ehrp_alignment_pipeline.json`](https://www.google.com/search?q=flows/ehrp_alignment_pipeline.json)），供系統整合與審計驗證。
 
 ---
 
@@ -128,4 +140,3 @@ GROQ_API_KEY = "gsk_..."
 
 This tool serves solely as an administrative assistant for onboarding document normalization. Users retain the sole legal obligation to verify all data outputs against original physical contracts and records prior to formal system ingestion.
 
-```
