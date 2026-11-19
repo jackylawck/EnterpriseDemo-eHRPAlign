@@ -1,0 +1,79 @@
+{
+  "workflow_id": "FLOW-EHRP-ALIGN-V1",
+  "workflow_name": "eHRP Align Closed-Loop Onboarding Governance Pipeline",
+  "organization": "Enterprise Demo Limited",
+  "compliance_alignment": [
+    "ISO/IEC 42001:2023 (AIMS)",
+    "ISO/IEC 27001:2022 (ISMS)",
+    "ISO/IEC 27701:2019 (PIMS)",
+    "HK PDPO (Cap. 486)",
+    "EU GDPR (Art. 25 Privacy by Design)"
+  ],
+  "data_retention_policy": {
+    "mode": "VOLATILE_SESSION_MEMORY_ONLY",
+    "persistent_storage": false,
+    "purge_trigger": "ON_TAB_CLOSE_OR_SESSION_RESET"
+  },
+  "stages": [
+    {
+      "stage_id": "STAGE_01_INGESTION",
+      "name": "Multi-Source Document Ingestion & Volatile Rendering",
+      "actor": "HR_SPECIALIST",
+      "engine": "PyMuPDF (fitz) & pypdf",
+      "actions": [
+        "Accept PDF, image, or text onboarding package in volatile RAM",
+        "Detect low-text or noisy scanned PDFs automatically",
+        "Render up to 12 pages into Base64 JPEG streams (100 DPI, quality 85) without disk write"
+      ]
+    },
+    {
+      "stage_id": "STAGE_02_SOURCE_GROUNDING",
+      "name": "Multimodal Extraction with Source Grounding Hierarchy",
+      "actor": "VISION_AI_OR_RULE_PARSER",
+      "ground_truth_rules": {
+        "salary_rank_grade_point": "Employment Contract Clause 3 & Interview Evaluation Form",
+        "legal_name_and_id": "Official Identity Card Copy",
+        "mobile_and_address": "Job Application Form (Demo-Form-001)",
+        "bank_and_account": "Bank Card Copy / Direct Deposit Authorization",
+        "emergency_contact_and_history": "Job Application Form (Demo-Form-001), CV & Certificate Scans"
+      },
+      "guardrails": [
+        "ZERO_HALLUCINATION: Return empty string '' for illegible or missing attributes",
+        "NO_AUTONOMOUS_PROFILING: Strictly administrative schema extraction only"
+      ]
+    },
+    {
+      "stage_id": "STAGE_03_DETERMINISTIC_NORMALIZATION",
+      "name": "Deterministic Schema Alignment & Code Mapping",
+      "actor": "DETERMINISTIC_NORMALIZER (app.py / parser.js)",
+      "transformations": [
+        "Standardize dates to DD/MM/YY",
+        "Format currency fields to 2 decimal places (0.00)",
+        "Split secondary Chinese full name into surname_secondary and given_name_secondary",
+        "Map department labels to enterprise codes (HQ, ENG, OPS, HR, FIN, IT, LEGAL)",
+        "Correct OCR typos in bank names against standard dictionary (HSBC, HANG SENG, BOC, etc.)"
+      ],
+      "output_schema_ref": "../schemas/ehrp_payload_schema.json"
+    },
+    {
+      "stage_id": "STAGE_04_HITL_VERIFICATION",
+      "name": "Human-in-the-Loop (HITL) Verification Gate",
+      "actor": "AUTHORIZED_HR_OFFICER",
+      "requirement": "MANDATORY_MANUAL_REVIEW",
+      "actions": [
+        "Inspect normalized fields across 8 structured UI tabs",
+        "Cross-check extracted values against original physical/scanned documents"
+      ]
+    },
+    {
+      "stage_id": "STAGE_05_EXPORT_AND_PURGE",
+      "name": "Clean Payload Export, Auto-Fill & Memory Destruction",
+      "actor": "CHROME_EXTENSION (content.js) & BROWSER_RUNTIME",
+      "actions": [
+        "Export validated JSON payload (eHRP_Align_<EMP_NO>.json)",
+        "Inject payload into target eHRP web DOM fields via Chrome Extension Manifest V3",
+        "Release session memory immediately upon page reload or tab closure"
+      ]
+    }
+  ]
+}
