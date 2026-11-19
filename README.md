@@ -9,7 +9,7 @@
 [![Privacy: HK PDPO / GDPR](https://img.shields.io/badge/Privacy-PDPO%20%7C%20GDPR-orange.svg)](COMPLIANCE_AND_DATA_GOVERNANCE.md)
 [![Architecture: Zero Data Retention](https://img.shields.io/badge/Privacy_by_Design-Zero_Data_Retention-0078D4.svg)](COMPLIANCE_AND_DATA_GOVERNANCE.md)
 
-🌐 **[專案展示主頁 / Project Showcase](https://jackylawck.github.io/EnterpriseDemo-eHRPAlign/)** ｜ 🚀 **[啟動線上系統 / Launch Demo App](https://enterprisedemo-ehrpalign.streamlit.app/)**
+🌐 **[專案展示主頁 / Project Showcase](https://jackylawck.github.io/EnterpriseDemo-eHRPAlign/)** 
 
 ---
 
