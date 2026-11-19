@@ -1,0 +1,91 @@
+{
+  "header": {
+    "employee_no": "DEMO-EMP-001"
+  },
+  "particulars": {
+    "given_name": "TAI MAN",
+    "surname": "CHAN",
+    "name_on_id": "CHAN TAI MAN",
+    "given_name_secondary": "大文",
+    "surname_secondary": "陳",
+    "id_type": "LOCAL/PR",
+    "id_no": "A123456(7)",
+    "alias": "",
+    "gender": "M",
+    "date_of_birth": "15/08/90",
+    "marital_status": "SINGLE",
+    "nationality": "HONG KONG SAR",
+    "race": "CHINESE",
+    "country_of_birth": "HONG KONG SAR",
+    "religion": "",
+    "telephone_home": "",
+    "telephone_mobile": "91234567",
+    "secondary_contact": "",
+    "employment_status": "ACTIVE",
+    "probation_months": "3"
+  },
+  "address": {
+    "address_line_1": "FLAT A, 12/F, TOWER 1, DEMO COURT",
+    "address_line_2": "88 ENTERPRISE ROAD, KOWLOON",
+    "address_line_3": "HONG KONG",
+    "f_post_code": ""
+  },
+  "employment": {
+    "designation": "PROJECT ENGINEER",
+    "effective_date_designation": "01/09/26",
+    "department": "ENG",
+    "employee_type": "EMPLOYEES",
+    "staff_group": "PROFESSIONAL",
+    "employee_class": "MONTHLY",
+    "employment_scheme": "SALARY",
+    "position": "ENGINEER",
+    "commencement_date": "01/09/26",
+    "cessation_date": "",
+    "confirmation_date": "01/12/26",
+    "bank": "HSBC",
+    "account_no": "004-123456-838",
+    "email": "taiman.chan@example.com"
+  },
+  "salary": {
+    "salary": "45000.00",
+    "variable_salary": "0.00",
+    "daily_rate": "0.00",
+    "add_rate": "0.00",
+    "rank": "R5",
+    "grade": "G10",
+    "point": "100",
+    "effective_date": "01/09/26"
+  },
+  "education": [
+    {
+      "qualifications": "BENG (HONS) IN CIVIL ENGINEERING",
+      "major_in": "CIVIL ENGINEERING",
+      "institution": "DEMO UNIVERSITY OF HONG KONG",
+      "year_grad": "2012"
+    }
+  ],
+  "prof_cert": [
+    {
+      "cert_name": "CONSTRUCTION INDUSTRY SAFETY TRAINING CERTIFICATE",
+      "institution": "DEMO SAFETY COUNCIL",
+      "year_obtain": "2024"
+    }
+  ],
+  "next_of_kin": [
+    {
+      "relationship": "SPOUSE",
+      "surname": "LEE",
+      "given_name": "SIU MING",
+      "pri_contact": "98765432"
+    }
+  ],
+  "prev_employment": [
+    {
+      "company": "ALPHA ENGINEERING DEMO LTD",
+      "date_join": "01/06/21",
+      "date_left": "31/08/26",
+      "designation": "ASSISTANT ENGINEER",
+      "last_drawn": "38000"
+    }
+  ]
+}
